@@ -1,0 +1,734 @@
+@charset "UTF-8";
+
+/* Basics*/
+body {
+    color: #222222;
+    font-family: sans-serif;
+    line-height: 1.5;
+}
+
+* {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+}
+
+a {
+    color: inherit;
+    text-decoration: none;
+}
+
+img {
+    max-width: 100%;
+    height: auto;
+    vertical-align: bottom;
+}
+
+
+/* 12Grid 12分割（PC）・4分割（Mobile)*/
+.grid12 {
+    display: grid;
+    /*均等に四分割する設定*/
+    grid-template-columns: repeat(4, 1fr);
+    /*ギャップの設定*/
+    column-gap: 10px;
+}
+
+.grid12 > * {
+    grid-column: 1 / -1;
+}
+
+@media (min-width: 768px) {
+    .grid12 {
+        grid-template-columns: repeat(12, 1fr);
+        column-gap: 16px;
+    }
+} 
+
+/* 12分割Grid カラム数、2, 3, 4の一括設定*/
+.cols-mob2 > * {
+    grid-column: span 2;
+}
+
+.cols-mob2.cols-pc3 > :first-child {
+    grid-column: span 4;
+}
+
+@media (min-width: 768px) {
+    .cols-pc4 > * {
+        grid-column: span 3;
+    }
+
+    .cols-pc3 > * {
+        grid-column: span 4;
+    }
+
+    .cols-pc2 > * {
+        grid-column: span 6;
+    }
+}
+
+/* List 余白・画像 */
+.list ul.grid12 {
+    row-gap: 20px;
+}
+
+.list ul img {
+    margin-bottom: 10px;
+    width: 100%;
+    height: 155px;
+    object-fit: cover;
+    border-radius: 10px;
+}
+
+.list ul h3 {
+    font-family: "Noto sans JP", sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+}
+
+
+@media (min-width: 768px) {
+    .list ul.grid12 {
+        row-gap: 28px;
+    }
+
+    .list ul img {
+        height: 265px;
+    }
+
+    .list ul h3 {
+        font-size: 18px;
+    }
+
+    .list ul.cols-pc3 img {
+        height: 353px;
+    }
+}
+
+/* リストの余白:マージン、パディングを使わない*/
+.partsGrid {
+    display: grid;
+    /* @mediaを使わずにminmax()でレスポンシブに*/
+    grid-template-columns: minmax(8vw,1fr) minmax(auto, 1088px) minmax(8vw,1fr);    
+}
+
+.partsGrid > * {
+    grid-column: 2;
+}
+
+/* List 一覧のPC設定*/
+.list > .grid12 {
+    row-gap: 32px;
+}
+
+.list h2 {
+    color: #444444;
+    font-family: "Noto sans JP", sans-serif;
+    font-size: 26px;
+    font-weight: 400;
+}
+
+.list h2 + p {
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+@media (min-width: 768px) {
+    .list h2, 
+    .list h2 + p {
+        grid-column: span 8;
+    }
+
+    .list h2 {
+        font-size: 32px;
+    }
+
+    .list h2 + p {
+        font-size: 16px;
+    }
+}
+
+/* 一覧（商品カテゴリー） */
+.list-plant {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    overflow: hidden;
+}
+
+/*装飾画像*/
+/* <div>を起点として機能させる為の設定*/
+.list-plant > .grid12 {
+    position: relative;
+}
+
+/*装飾画像を追加する設定::before擬似要素を使う*/
+.list-plant > .grid12::before {
+    content: url(img/sun.svg);
+    position: absolute;
+    top: -80px;
+    right: -120px;
+    z-index: -1;
+}
+
+@media (min-width: 768px) {
+    .list-plant {
+        padding-bottom: 86px;
+    }
+
+    .list-plant > .grid12::before {
+        right: 17px;
+    }
+}
+
+/* 一覧（体験） */
+.list-exp {
+    padding-top: 80px;
+    padding-bottom: 80px;
+    background-color: #EEFBE3;  
+}
+
+/* 一覧（体験） */
+.list-item {
+    padding-top: 40px;
+    padding-bottom: 40px;
+}
+
+@media (min-width: 768px) {
+    .list-item {
+        padding-top: 60px;
+        padding-bottom: 60px;
+    }
+}
+
+/*一覧　ボーダー*/
+.frame {
+    border:#6ABEEB 1px solid;
+    padding: 40px 15px;
+    /*上記のコードではグリッドが狭くなるので、マイナスマージンを追加*/
+    margin: 0 -15px;
+}
+
+@media (min-width: 768px) {
+    .frame {
+        padding: 60px 0;
+        margin: 0;
+    }
+
+    .frame h2,
+    .frame h2 + p {
+        grid-column: 2 / span 7;
+    }
+
+    .frame ul {
+        grid-column: 2 / -2;
+    }
+}
+
+/*ボーダー内の12分割グリッド(ボーダーをつけたい時は.frameクラスを追加して一括設定できる)*/
+.frame .grid12 {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    column-gap: 10px;
+}
+
+.frame .grid12 > * {
+    grid-column: 1 / -1;
+}
+
+@media (min-width: 768px) {
+    .frame .grid12 {
+        grid-template-columns: repeat(12, 1fr);
+        column-gap: 16px;
+    }
+} 
+
+/* ボーダー内の12分割Grid カラム数、2, 3, 4の一括設定*/
+.frame .cols-mob2 > * {
+    grid-column: span 2;
+}
+
+.frame .cols-mob2.cols-pc3 > :first-child {
+    grid-column: span 4;
+}
+
+@media (min-width: 768px) {
+    .frame .cols-pc4 > * {
+        grid-column: span 3;
+    }
+
+    .frame .cols-pc3 > * {
+        grid-column: span 4;
+    }
+
+    .frame .cols-pc2 > * {
+        grid-column: span 6;
+    }
+}
+
+/*Footer*/
+
+.footer.partsGrid {
+    padding: 80px 0;
+    border: solid 1px #6ABEEB;
+    background-color: #F0F9FE;
+    /*Footerのナビとサイト情報の間の余白*/
+    row-gap: 74px;
+}
+
+@media (min-width: 768px) {
+    .footer.partsGrid {
+        row-gap: 99px;
+    }
+}
+
+/*Footer:メニュー*/
+.footer-nav.grid12 {
+    row-gap: 40px;
+}
+
+/*Footer:メニュー字色*/
+.footer h4 {
+    color: #888888;
+    margin-bottom: 20px;
+}
+
+/*メニューの見出し（grid-template-columns等で設定していないため、直近の子要素<li>が縦一列に自動配列される
+*/
+.footer-nav ul {
+    display: grid;
+    row-gap: 7px;
+}
+
+/*Footer:サイト内の配置*/
+.footer-site.grid12 {
+    /*profileとcopyrightの間の余白*/
+    row-gap: 32px;
+}
+
+.profile p {
+    /*ロゴと住所の間の余白はマージンで*/
+    margin-top: 12px;
+    font-size: 12px;
+}
+
+
+.copyright ul {
+    /*一列に配置*/
+    display: grid;
+    grid-auto-flow: column;
+    /*配置の余白*/
+    column-gap: 18px;
+    /*一括ナビリストを左寄せにする（リスト間にギャップ以外の余白なし）*/
+    justify-content: start;
+    font-size: 12px;
+}
+
+.copyright p {
+    margin-top: 16px;
+    font-size: 12px;
+}
+
+@media (min-width: 768px) {
+    .copyright {
+        justify-self: end;
+        align-self: end;
+        text-align: right;
+    }
+
+    .copyright ul {
+        column-gap: 28px;
+    }
+}
+
+/*Header: ナビゲーション*/
+.header.partsGrid {
+    padding-top: 26px;
+}
+
+.header-nav.grid12 {
+    row-gap: 27px;
+    align-items: center;
+}
+
+.header-nav ul {
+    /*横並びにした時の列の範囲*/
+    grid-column: span 3;
+
+    /*リストを横並びにする設定*/
+    display: grid;
+    grid-auto-flow: column;
+    column-gap: 20px;
+    justify-content: start;
+
+    /*色サイズ*/
+    color: #127791;
+    font-size: 14px;
+}
+
+.header-nav .cart {
+    grid-column: span 1;
+    /*右寄せにする設定*/
+    justify-self: end;
+    color: #127791;
+    font-size: 23px;
+}
+
+@media (min-width: 768px) {
+    .header.partsGrid {
+        padding-top: 39px;
+    }
+
+    .header-nav {
+        grid-row: span 1;
+    }
+
+    .header-nav img {
+        grid-column: span 2;
+    }
+
+    .header-nav ul {
+        grid-column: span 9;
+        justify-self: end;
+        /*色サイズ*/
+        font-size: 16px;
+        column-gap: 40px;
+    }
+
+    .header-nav .cart {
+        font-size: 30px;
+    }
+}
+
+/*トップページ*/
+/*ヘッダー画像*/
+.top .header.partsGrid {
+    /*トップページのみ画像が入るので、.topを追加*/
+    background-image: url(img/illustration.jpg);
+    background-size: cover;
+    background-position: center bottom;
+}
+
+.catch.grid12 {
+    padding-top: 195px;
+    padding-bottom: 226px;
+    row-gap: 33px;
+}
+
+.catch h1 {
+    font-family: sans-serif, 'Noto sans JP';
+    font-weight: 400;
+    font-size: 32px;
+    }
+
+.catch a {
+    background-color: #16A6CB;
+    border: solid 2px #FFFFFF;
+    box-sizing: border-box;
+    border-radius: 4px;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+    
+    width: 260px;
+    /* height: 57px; */
+    padding: 13px 0 17px;
+    
+    color: #FFFFFF;
+    font-family: 'Noto sans JP', sans-serif;
+    font-size: 18px;
+    font-weight: 500;
+    text-align: center;
+}
+
+@media (min-width: 768px) {
+    .catch.grid12 {
+        padding-top: 174px;
+        padding-bottom: 309px;
+    }
+
+    .catch h1 {
+        grid-column: span 6;
+        font-size: 54px;
+        min-width: 8em;
+    }
+}
+
+/*ヘッダー:　ディバイダー*/
+.header {
+    position: relative;
+}
+
+.custom-shape-divider-bottom-1714749291 {
+    grid-column: 1 / -1;
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    overflow: hidden;
+    line-height: 0;
+    transform: rotate(180deg);
+}
+
+.custom-shape-divider-bottom-1714749291 svg {
+    position: relative;
+    display: block;
+    width: calc(134% + 1.3px);
+    height: 128px;
+}
+
+.custom-shape-divider-bottom-1714749291 .shape-fill {
+    fill: #FFFFFF;
+}
+
+/*コンテンツページ*/
+/*ヘッダー*/
+.content .header-nav ul,
+.content .header-nav .cart {
+    color: #555555;
+}
+
+/*ヘッダー画像*/
+.item.partsGrid {
+    row-gap: 44px;
+    padding-top: 20px;
+    padding-bottom: 64px;
+}
+
+.item.partsGrid + .list-item {
+    /*.item.partsGridと同じ階層の直後の.list-item*/
+    padding-top: 0;
+}   
+
+.item-photo {
+    /*ヘッダー画像を画面幅いっぱいに設定*/
+    grid-column: 1 / -1;
+}
+
+@media (min-width: 768px){
+    .item.partsGrid {
+        padding-top: 30px;
+        padding-bottom: 88px;
+        row-gap: 80px;
+    }
+
+    .item-photo {
+        grid-column: 2;
+    }
+
+}
+
+/*商品情報:12分割ブリッド*/
+.item .grid12 {
+    row-gap: 44px;
+}
+
+@media (min-width: 768px) {
+    .item-body {
+        /*左から6分割内に収める*/
+        grid-column: span 6;
+    }
+    
+    .item-order {
+        /*右から5分割内に収める*/
+        grid-column: span 5 / -1;
+    }
+}
+
+/*商品情報:本文*/
+.item-body h1 {
+    font-family: 'Noto sans JP', sans-serif;
+    margin-bottom: 33px;
+    font-size: 26px;
+    font-weight: 400;
+}
+
+.item-body h1 + p {
+    margin-bottom: 44px;
+    font-size: 14px;
+    line-height: 1.8;
+}
+
+.item-body ul {
+    display: grid;
+    row-gap: 23px;
+}
+
+.item-body ul h3 {
+    font-family: 'Noto sans JP', sans-serif;
+    font-size: 16px;
+    font-weight: 500;
+    margin-bottom: 7px;
+}
+
+.item-body ul p {
+    font-size: 14px;
+}
+
+
+@media (min-width: 768px) {
+    .item-body h1 {
+        margin-bottom: 38px;
+        font-size: 44px;
+    }
+
+    .item-body h1 + p {
+        margin-bottom: 64px;
+        font-size: 16px;
+    }
+
+    .item-body ul h3 {
+        font-size: 18px;
+    }
+
+    .item-body ul p {
+        font-size: 16px;
+    }
+}
+
+/*商品情報:装飾画像*/
+.item {
+    /*はみ出した部分は隠れるようにする設定*/
+    overflow: hidden;
+}
+
+/* .item-bodyを起点として機能させる為の設定*/
+.item-body {
+    position: relative;
+}
+
+/*コンテンツページ/装飾画像を追加する設定::before擬似要素を使う*/
+.item-body::before {
+    content: url(img/sun.svg);
+    position: absolute;
+    top: -85px;
+    right: -133px;
+    z-index: -1;
+}
+
+@media (min-width: 768px) {
+    .item-body::before {
+        top: -209px;
+        left: -193px;
+        right: auto;
+    }
+}
+
+/*商品情報: リストのアイコン*/
+.item-body li {
+    display: grid;
+    grid-template-columns: 54px 1fr;
+}
+
+.item-body ul .fa-solid {
+    grid-row: span 2;
+    color: #6ABEEB;
+    font-size: 30px;   
+}
+
+/*注文フォーム*/
+.item-order {
+    padding: 44px 23px;
+    background-color: #EEEEEE;
+    border-radius: 10px;
+
+    /* height: 357px; */
+    /* row-gap: 44px; */
+}
+
+/*注文フォーム:　価格*/
+.item-order .price {
+    padding-bottom: 31px;
+    color: #C50A0A;
+    font-size: 24px;
+    font-weight: bold;
+    border-bottom: solid #CCCCCC 1px;
+}   
+
+.item-order .price span {
+    font-size: 10px;
+    font-weight: normal;
+    color: #222222;
+}
+
+.item-order .qty {
+    display: block;
+    font-size: 14px;
+    font-weight: bold;
+    padding: 44px 0;
+}
+
+
+/*注文フォーム:　セレクトボタン*/
+.item-order .qty select {
+    /*ブラウザのデフォルト表示の無効化*/
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+    /*プルダウン型選択肢の表示設定*/
+    padding: 14px 95px 13px 20px;
+    width: 154px;
+    height: 48px;
+    margin-left: 31px;
+    /*プルダウン型選択肢（ボーダー）の設定*/
+    border-radius: 10px;
+    border: solid #CCCCCC 1px;
+    /*下向き矢印の表示設定*/
+    background-image: url(img/select.svg);
+    /*右から15px中央揃え*/
+    background-position: right 15px center;
+    background-repeat: no-repeat;
+    /*数量の数字のフォントを親要素と同じにする設定*/
+    font-family: inherit;
+    font-size: 14px;
+}
+
+/*注文フォーム: カート*/
+.item-order .btn {
+    width: 100%;
+    height: 75px;
+
+    font-size: 16px;
+    font-weight: bold;
+    color: #FFFFFF;
+    /*横方向の揃え位置を設定・ブロック要素に指定・インライン要素には使えない*/
+    text-align: center;
+
+    background-color: #C50A0A;
+    border-radius: 4px;
+    border: none;
+    box-shadow: 0 3px 6px rgba(0, 0, 0, 0.16);
+
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    appearance: none;
+}
+
+.item-order .btn .fa-solid {
+    margin-right: 14px;
+    font-size: 21px;
+    /*縦方向の揃え位置を設定・インライン要素に指定・ブロック要素には使えない*/
+    vertical-align: middle;
+}
+
+@media (min-width: 768px) {
+    .item-order {
+        padding: 54px 8%;
+        /*中身に合わせた高さ（指定しないと左の本文に合わせた高さになる*/
+        align-self: start;
+    }
+
+    .item-order .btn {
+        font-size: 18px;
+    }
+
+    .item-order .fa-solid {
+        font-size: 30px;
+    }
+}
+
+
+
+
+
+
+
+
